@@ -1,0 +1,19 @@
+{% if datos %}
+   <h1>WELCOME</h1>
+   <ul>
+     {%for movie in datos.results%}
+        <li type="circle">{{movie.title}}</li>
+        <ul>
+          <li type='disc'>Episodio: {{movie.episode_id}}</li>
+          <li type='disc'>Estreno: {{movie.release_date}}</li>
+          <li type='disc'>Director: {{movie.director}}</li>
+          <li type='disc'>Productor: {{movie.producer}}</li>
+
+        </ul>
+     {% endfor %}
+   </ul>
+
+
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
