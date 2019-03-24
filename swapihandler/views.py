@@ -18,8 +18,6 @@ def index(request):
             if j["episode_id"] == req["episode_id"]:
                 j.update({'id':id})
 
-
-
     context = {
         'datos': datos,
     }
@@ -92,5 +90,35 @@ def character_detail(request, number):
         'planets': planets,
         'movies': movies,
         'starships': starships,
+        }
+    return HttpResponse(template.render(context, request))
+
+
+
+def planet_detail(request, number):
+    r = requests.get('https://swapi.co/api/planets/{}'.format(number))
+    datos = r.json()
+    template = loader.get_template('swapihandler/planetdetail.html')
+    residents = {}
+    films = {}
+    for link in datos['residents']:
+        reqres = requests.get('{}'.format(link)).json()
+        nombre = reqres['name']
+        url = link.split('/')
+        id = url[-2]
+        residents.update({nombre:id})
+
+    for link in datos['films']:
+        reqfilms = requests.get('{}'.format(link)).json()
+        nombre = reqfilms['title']
+        url = link.split('/')
+        id = url[-2]
+        films.update({nombre:id})
+
+
+    context = {
+        'datos': datos,
+        'residents': residents,
+        'films': films,
         }
     return HttpResponse(template.render(context, request))

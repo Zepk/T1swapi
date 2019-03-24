@@ -69,7 +69,7 @@ table th {
  </table>
 
 <div>
-
+{%if movies.items%}
 <table style="float: left">
   <rt>
     <th>Peliculas</th>
@@ -82,7 +82,9 @@ table th {
   {%endfor%}
 
 </table>
+{%endif%}
 
+{%if starships.items%}
 <table style="float: left">
   <rt>
     <th>Naves</th>
@@ -95,7 +97,7 @@ table th {
   {%endfor%}
 
 </table>
-
+{%endif%}
 
 </div>
 
