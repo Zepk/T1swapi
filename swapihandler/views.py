@@ -122,3 +122,31 @@ def planet_detail(request, number):
         'films': films,
         }
     return HttpResponse(template.render(context, request))
+
+
+
+
+def starship_detail(request, number):
+    r = requests.get('https://swapi.co/api/starships/{}'.format(number))
+    datos = r.json()
+    template = loader.get_template('swapihandler/starshipdetail.html')
+    pilots = {}
+    films = {}
+    for link in datos['pilots']:
+        reqpilots = requests.get('{}'.format(link)).json()
+        nombre = reqpilots['name']
+        url = link.split('/')
+        id = url[-2]
+        pilots.update({nombre:id})
+    for link in datos['films']:
+        reqfilms = requests.get('{}'.format(link)).json()
+        nombre = reqfilms['title']
+        url = link.split('/')
+        id = url[-2]
+        films.update({nombre:id})
+    context = {
+        'datos': datos,
+        'pilots': pilots,
+        'films': films,
+        }
+    return HttpResponse(template.render(context, request))
