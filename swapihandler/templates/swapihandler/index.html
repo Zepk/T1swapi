@@ -21,17 +21,6 @@ table th {
 
 {% if datos %}
    <h1>WELCOME</h1>
-   <ul>
-     {%for movie in datos.results%}
-        <li type="circle">{{movie.title}}</li>
-        <ul>
-          <li type='disc'>Episodio: {{movie.episode_id}}</li>
-          <li type='disc'>Estreno: {{movie.release_date}}</li>
-          <li type='disc'>Director: {{movie.director}}</li>
-          <li type='disc'>Productor: {{movie.producer}}</li>
-        </ul>
-     {% endfor %}
-   </ul>
 
 <table style="width:100%">
   <rt>
@@ -44,7 +33,7 @@ table th {
 
   {% for movie in datos.results %}
     <tr>
-      <td>{{movie.title}}</td>
+      <td><a href = "/moviedetail/{{movie.id}}">{{movie.title}}</a></td>
       <td>{{movie.episode_id}}</td>
       <td>{{movie.release_date}}</td>
       <td>{{movie.director}}</td>
