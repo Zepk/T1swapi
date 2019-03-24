@@ -160,17 +160,59 @@ def search(request):
         message = 'You searched for: %r' % request.GET['q']
         template = loader.get_template('swapihandler/searchview.html')
         characters = []
+        films = []
+        starships = []
+        planets = []
         reqpeople = requests.get('https://swapi.co/api/people/?search={}'.format(request.GET['q'])).json()
-        while reqpeople['next']:
+        while True:
             for personaje in reqpeople['results']:
                 id = personaje['url'].split('/')[-2]
                 personaje.update({"id":id})
                 characters.append(personaje)
-            reqpeople = requests.get('{}'.format(reqpeople['next'])).json()
+            if (reqpeople['next']):
+                reqpeople = requests.get('{}'.format(reqpeople['next'])).json()
+            else:
+                break
+
+        reqfilms = requests.get('https://swapi.co/api/films/?search={}'.format(request.GET['q'])).json()
+        while True:
+            for film in reqfilms['results']:
+                id = film['url'].split('/')[-2]
+                film.update({"id":id})
+                films.append(film)
+            if (reqfilms['next']):
+                reqfilms = requests.get('{}'.format(reqfilms['next'])).json()
+            else:
+                break
+
+        reqstarships = requests.get('https://swapi.co/api/starships/?search={}'.format(request.GET['q'])).json()
+        while True:
+            for starship in reqstarships['results']:
+                id = starship['url'].split('/')[-2]
+                starship.update({"id":id})
+                starships.append(starship)
+            if (reqstarships['next']):
+                reqstarships = requests.get('{}'.format(reqstarships['next'])).json()
+            else:
+                break
+
+        reqplanets = requests.get('https://swapi.co/api/planets/?search={}'.format(request.GET['q'])).json()
+        while True:
+            for planet in reqplanets['results']:
+                id = planet['url'].split('/')[-2]
+                planet.update({"id":id})
+                planets.append(planet)
+            if (reqplanets['next']):
+                reqplanets = requests.get('{}'.format(reqplanets['next'])).json()
+            else:
+                break
 
 
         context = {
             'message': message,
-            'characters':characters
+            'characters': characters,
+            'films': films,
+            'starships': starships,
+            'planets': planets,
             }
     return HttpResponse(template.render(context, request))

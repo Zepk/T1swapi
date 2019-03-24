@@ -41,9 +41,59 @@ table th {
   <td><a href = "/characterdetail/{{personaje.id}}">{{personaje.name}}</a></td>
 </tr>
 {%endfor%}
-
-
 </table>
+
+
+
+
+
+<table style="float: left">
+<rt>
+  <th>Naves</th>
+</tr>
+{%for starship in starships%}
+
+<tr>
+  <td><a href = "/starshipdetail/{{starship.id}}">{{starship.name}}</a></td>
+</tr>
+{%endfor%}
+</table>
+
+
+
+<table style="float: left">
+<rt>
+  <th>Planetas</th>
+</tr>
+{%for planet in planets%}
+
+<tr>
+  <td><a href = "/planetdetail/{{planet.id}}">{{planet.name}}</a></td>
+</tr>
+{%endfor%}
+</table>
+
+
+
+
+<table style="float: left">
+<rt>
+  <th>Peliculas</th>
+</tr>
+{%for pelicula in films%}
+
+<tr>
+  <td><a href = "/moviedetail/{{pelicula.id}}">{{pelicula.title}}</a></td>
+</tr>
+{%endfor%}
+</table>
+
+
+
+
+
+
+
 
 
 {%endif%}
