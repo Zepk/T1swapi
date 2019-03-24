@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url
 
 urlpatterns = [
     path('', include('swapihandler.urls')),
+    url(r'^', include('swapihandler.urls')),
     path('admin/', admin.site.urls),
 ]

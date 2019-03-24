@@ -129,8 +129,8 @@ def planet_detail(request, number):
 def starship_detail(request, number):
     r = requests.get('https://swapi.co/api/starships/{}'.format(number))
     datos = r.json()
-    template = loader.get_template('swapihandler/starshipdetail.html')
     pilots = {}
+    template = loader.get_template('swapihandler/starshipdetail.html')
     films = {}
     for link in datos['pilots']:
         reqpilots = requests.get('{}'.format(link)).json()
@@ -149,4 +149,28 @@ def starship_detail(request, number):
         'pilots': pilots,
         'films': films,
         }
+    return HttpResponse(template.render(context, request))
+
+
+def search_form(request):
+    return render(request, 'swapihandler/searchview.html')
+
+def search(request):
+    if 'q' in request.GET:
+        message = 'You searched for: %r' % request.GET['q']
+        template = loader.get_template('swapihandler/searchview.html')
+        characters = []
+        reqpeople = requests.get('https://swapi.co/api/people/?search={}'.format(request.GET['q'])).json()
+        while reqpeople['next']:
+            for personaje in reqpeople['results']:
+                id = personaje['url'].split('/')[-2]
+                personaje.update({"id":id})
+                characters.append(personaje)
+            reqpeople = requests.get('{}'.format(reqpeople['next'])).json()
+
+
+        context = {
+            'message': message,
+            'characters':characters
+            }
     return HttpResponse(template.render(context, request))

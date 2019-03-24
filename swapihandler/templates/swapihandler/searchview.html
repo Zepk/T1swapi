@@ -1,0 +1,49 @@
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+}
+table tr:nth-child(even) {
+  background-color: #eee;
+}
+table tr:nth-child(odd) {
+ background-color: #fff;
+}
+table th {
+  background-color: black;
+  color: white;
+}
+
+</style>
+
+
+
+
+<h1>WELCOME</h1>
+<form action="/searchview/" method="get">
+    <input type="text" name="q">
+    <input type="submit" value="Search">
+</form>
+{% if message %}
+<p>{{message}}</p>
+
+
+<table style="float: left">
+<rt>
+  <th>Personajes</th>
+</tr>
+{%for personaje in characters%}
+
+<tr>
+  <td><a href = "/characterdetail/{{personaje.id}}">{{personaje.name}}</a></td>
+</tr>
+{%endfor%}
+
+
+</table>
+
+
+{%endif%}
