@@ -26,7 +26,7 @@ table th {
      <input type="text" name="q">
      <input type="submit" value="Buscar">
  </form>
- 
+
  <table style="width:100%">
    <tr>
      <td>Nombre</td>
@@ -82,7 +82,7 @@ table th {
  </table>
 
 
-
+{%if films%}
  <table style="float: left">
    <rt>
      <th>Peliculas</th>
@@ -94,7 +94,7 @@ table th {
    </tr>
    {%endfor%}
  </table>
-
+{%endif%}
 
  {%endif%}
  </div>
