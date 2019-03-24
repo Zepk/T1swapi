@@ -157,7 +157,7 @@ def search_form(request):
 
 def search(request):
     if 'q' in request.GET:
-        message = 'You searched for: %r' % request.GET['q']
+        message = '%r' % request.GET['q']
         template = loader.get_template('swapihandler/searchview.html')
         characters = []
         films = []

@@ -25,12 +25,11 @@ table th {
 <h1>WELCOME</h1>
 <form action="/searchview/" method="get">
     <input type="text" name="q">
-    <input type="submit" value="Search">
+    <input type="submit" value="Buscar">
 </form>
 {% if message %}
-<p>{{message}}</p>
 
-
+{% if characters %}
 <table style="float: left">
 <rt>
   <th>Personajes</th>
@@ -42,11 +41,12 @@ table th {
 </tr>
 {%endfor%}
 </table>
+{% endif %}
 
 
 
 
-
+{% if starships %}
 <table style="float: left">
 <rt>
   <th>Naves</th>
@@ -58,9 +58,10 @@ table th {
 </tr>
 {%endfor%}
 </table>
+{% endif %}
 
 
-
+{% if planets %}
 <table style="float: left">
 <rt>
   <th>Planetas</th>
@@ -72,10 +73,11 @@ table th {
 </tr>
 {%endfor%}
 </table>
+{% endif %}
 
 
 
-
+{% if films %}
 <table style="float: left">
 <rt>
   <th>Peliculas</th>
@@ -87,7 +89,13 @@ table th {
 </tr>
 {%endfor%}
 </table>
+{% endif %}
 
+{%if not films and not planets and not starships and not characters%}
+
+<p>No se encontraron resultados para la busqueda: {{message}}</p>
+
+{%endif%}
 
 
 
