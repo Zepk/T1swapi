@@ -6,4 +6,5 @@ app_name = 'swapihandler'
 urlpatterns = [
     path('', views.index, name='index'),
     path('moviedetail/<int:number>', views.movie_detail, name='moviedetail'),
+    path('haracterdetail/<int:number>', views.character_detail, name='charaterdetail'),
     ]

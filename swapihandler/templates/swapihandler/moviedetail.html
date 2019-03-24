@@ -62,25 +62,29 @@ table#t01 td {
    </table>
 
 <div>
+
+
+
    <table style="float: left">
    <rt>
      <th>Personajes</th>
    </tr>
-   {%for personaje in movie.characters%}
+   {%for name, id in characters.items%}
    <tr>
-     <td>{{personaje}}</td>
+     <td><a href = "/characterdetail/{{id}}">{{name}}</a></td>
    </tr>
    {%endfor%}
 
    </table>
 
+
    <table style="float: left">
    <rt>
      <th>Naves</th>
    </tr>
-   {%for nave in movie.starships%}
+   {%for nave, id in starships.items%}
    <tr>
-     <td>{{nave}}</td>
+     <td><a href = "/starshipdetail/{{id}}">{{nave}}</a></td>
    </tr>
    {%endfor%}
 
@@ -91,9 +95,9 @@ table#t01 td {
    <rt>
      <th>Planetas</th>
    </tr>
-   {%for planeta in movie.planets%}
+   {%for planeta, id in planets.items%}
    <tr>
-     <td>{{planeta}}</td>
+     <td><a href = "/planetdetail/{{id}}">{{planeta}}</a></td>
    </tr>
    {%endfor%}
 
