@@ -63,3 +63,34 @@ def movie_detail(request, number):
 def character_detail(request, number):
     r = requests.get('https://swapi.co/api/people/{}'.format(number))
     datos = r.json()
+    template = loader.get_template('swapihandler/characterdetail.html')
+    planets = {}
+    movies = {}
+    starships = {}
+    reqplan = requests.get('{}'.format(datos['homeworld'])).json()
+    nombre = reqplan['name']
+    url = datos['homeworld'].split('/')
+    id = url[-2]
+    planets.update({nombre:id})
+
+    for link in datos['films']:
+        reqmov = requests.get('{}'.format(link)).json()
+        nombre = reqmov['title']
+        url = link.split('/')
+        id = url[-2]
+        movies.update({nombre:id})
+
+    for link in datos['starships']:
+        reqstar = requests.get('{}'.format(link)).json()
+        nombre = reqstar['name']
+        url = link.split('/')
+        id = url[-2]
+        starships.update({nombre:id})
+
+    context = {
+        'datos': datos,
+        'planets': planets,
+        'movies': movies,
+        'starships': starships,
+        }
+    return HttpResponse(template.render(context, request))
